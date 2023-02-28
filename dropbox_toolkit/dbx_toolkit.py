@@ -62,5 +62,5 @@ class DropboxToolkit:
         except Exception as e:
             print('Error downloading file from Dropbox: ' + str(e))
 
-    def upload_file(self, content, upload_path):
-        self.dbx.files_upload(content, upload_path)
+    def upload_file(self, file, upload_path):
+        self.dbx.files_upload(file, upload_path)
