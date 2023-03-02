@@ -19,7 +19,7 @@ class DropboxToolkit:
         """Download a file from Dropbox to the local machine."""
         try:
             with open(local_file_path, 'wb') as f:
-                metadata, result = dbx.files_download(path=dropbox_file_path)
+                metadata, result = self.dbx.files_download(path=dropbox_file_path)
                 f.write(result.content)
         except Exception as e:
             print('Error downloading file from Dropbox: ' + str(e))
@@ -62,5 +62,7 @@ class DropboxToolkit:
         except Exception as e:
             print('Error downloading file from Dropbox: ' + str(e))
 
-    def upload_file(self, file, upload_path):
-        self.dbx.files_upload(file, upload_path)
+    def upload_file(self, local_file_path, dropbox_file_path):
+
+        with open(local_file_path, "rb") as f:
+            self.dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
